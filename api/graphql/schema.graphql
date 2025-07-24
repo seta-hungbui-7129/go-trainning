@@ -1,0 +1,41 @@
+enum UserRole {
+  manager
+  member
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  role: UserRole!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type LoginResponse {
+  user: User!
+  token: String!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  role: UserRole!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Query {
+  fetchUsers: [User!]!
+  me: User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  login(input: LoginInput!): LoginResponse!
+  logout: Boolean!
+}
