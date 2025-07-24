@@ -1,5 +1,204 @@
-# seta-training
-SETA golang/nodejs training
+# SETA Training - User, Team & Asset Management System
+
+A microservices-based system built with Go for managing users, teams, and digital assets with role-based access control.
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Go 1.21 or higher
+- Docker and Docker Compose
+- Git
+
+### 1. Clone and Setup
+```bash
+git clone <repository-url>
+cd seta-training
+cp .env.example .env  # Edit as needed
+```
+
+### 2. Start Database
+```bash
+./scripts/start-db.sh
+```
+
+### 3. Run Application
+```bash
+./scripts/run.sh
+```
+
+The application will be available at:
+- **GraphQL Playground**: http://localhost:8080/playground
+- **Health Check**: http://localhost:8080/health
+- **REST API**: http://localhost:8080/api/v1
+
+## 📁 Project Structure
+
+```
+seta-training/
+├── api/
+│   ├── graphql/          # GraphQL schema, resolvers, generated code
+│   └── rest/             # REST API handlers (future)
+├── cmd/
+│   └── server/           # Main application entry point
+├── internal/
+│   ├── config/           # Configuration management
+│   ├── database/         # Database connection and migrations
+│   ├── handlers/         # HTTP handlers
+│   ├── middleware/       # Authentication and other middleware
+│   ├── models/           # Database models
+│   ├── repositories/     # Data access layer
+│   └── services/         # Business logic layer
+├── pkg/
+│   ├── auth/             # JWT and password utilities
+│   └── utils/            # Shared utilities
+├── docker/               # Docker configuration
+├── scripts/              # Build and deployment scripts
+└── docs/                 # Documentation
+    ├── PROJECT_STRUCTURE.md # Complete project structure
+    ├── API_DOCUMENTATION.md # API endpoints and examples
+    ├── DEPLOYMENT_GUIDE.md  # Deployment instructions
+    └── DEVELOPMENT_GUIDE.md # Development guidelines
+```
+
+## 📚 Documentation
+
+- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Complete directory structure and architecture overview
+- **[API Documentation](docs/API_DOCUMENTATION.md)** - GraphQL and REST API endpoints with examples
+- **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)** - Local development and production deployment instructions
+- **[Development Guide](docs/DEVELOPMENT_GUIDE.md)** - Development workflow, patterns, and best practices
+
+## 🎯 Features Implemented
+
+### ✅ **Core Infrastructure**
+- Microservices architecture with clean separation of concerns
+- PostgreSQL database with automatic migrations
+- JWT authentication with proper token validation
+- Role-based access control (RBAC) for managers and members
+- Docker setup for easy database deployment
+
+### ✅ **GraphQL Service (User Management)**
+- User creation with username, email, password, and role
+- User authentication (login/logout) with JWT tokens
+- User listing (fetchUsers query)
+- Password hashing with bcrypt
+- Email and username uniqueness validation
+
+### ✅ **REST API (Team Management)**
+- Team creation by managers
+- Team member management (add/remove members)
+- Team manager management (add/remove managers)
+- Proper authorization - only managers can manage teams
+- Automatic creator assignment as team manager
+
+### ✅ **Database Models & Relationships**
+- User model with roles and authentication
+- Team model with many-to-many relationships
+- Folder and Note models with sharing capabilities (ready for implementation)
+- Proper foreign key constraints and indexes
+
+### ✅ **Security & Middleware**
+- JWT middleware for authentication
+- Role-based middleware for authorization
+- Password encryption and validation
+- Input validation and error handling
+
+## 🚀 API Examples
+
+### GraphQL (User Management)
+
+#### Create User
+```graphql
+mutation {
+  createUser(input: {
+    username: "manager1"
+    email: "manager@example.com"
+    password: "password123"
+    role: manager
+  }) {
+    id username email role
+  }
+}
+```
+
+#### Login
+```graphql
+mutation {
+  login(input: {
+    email: "manager@example.com"
+    password: "password123"
+  }) {
+    user { id username email role }
+    token
+  }
+}
+```
+
+### REST API (Team Management)
+
+#### Create Team
+```bash
+curl -X POST http://localhost:8080/api/v1/teams \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "teamName": "Development Team",
+    "managers": [],
+    "members": []
+  }'
+```
+
+## 🔧 Development Commands
+
+```bash
+# Start database
+./scripts/start-db.sh
+
+# Run application
+./scripts/run.sh
+
+# Build application
+./scripts/build.sh
+
+# Run tests
+go test ./...
+
+# Generate GraphQL code
+go run github.com/99designs/gqlgen@latest generate
+```
+
+## 🏗 Architecture Highlights
+
+1. **Clean Architecture**: Separated into layers (handlers, services, repositories, models)
+2. **Dependency Injection**: Proper service initialization and dependency management
+3. **Error Handling**: Comprehensive error handling with appropriate HTTP status codes
+4. **Database Migrations**: Automatic schema creation and updates
+5. **Configuration Management**: Environment-based configuration with defaults
+6. **Logging**: Structured logging with GORM query logging
+7. **Testing Ready**: Structure supports easy unit and integration testing
+
+## 🔄 Future Enhancements
+
+The foundation is solid and ready for:
+- **Asset Management**: Folder and note CRUD operations (models already created)
+- **Sharing System**: Implement folder/note sharing with access control
+- **Manager Asset Viewing**: Team asset visibility for managers
+- **Unit Tests**: Comprehensive test suite
+- **API Documentation**: Swagger/OpenAPI documentation
+- **Monitoring**: Loki + Grafana + Promtail integration
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+See [Development Guide](docs/DEVELOPMENT_GUIDE.md) for detailed development instructions.
+
+## 📄 License
+
+This project is part of SETA golang/nodejs training program.
 # 🏗 Training Exercise: User, Team & Asset Management
 
 ## 🎯 Objective
