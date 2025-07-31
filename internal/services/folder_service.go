@@ -10,11 +10,11 @@ import (
 )
 
 type FolderService struct {
-	folderRepo *repositories.FolderRepository
-	noteRepo   *repositories.NoteRepository
+	folderRepo repositories.FolderRepositoryInterface
+	noteRepo   repositories.NoteRepositoryInterface
 }
 
-func NewFolderService(folderRepo *repositories.FolderRepository, noteRepo *repositories.NoteRepository) *FolderService {
+func NewFolderService(folderRepo repositories.FolderRepositoryInterface, noteRepo repositories.NoteRepositoryInterface) *FolderService {
 	return &FolderService{
 		folderRepo: folderRepo,
 		noteRepo:   noteRepo,

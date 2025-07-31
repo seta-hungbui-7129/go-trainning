@@ -10,11 +10,11 @@ import (
 )
 
 type NoteService struct {
-	noteRepo   *repositories.NoteRepository
-	folderRepo *repositories.FolderRepository
+	noteRepo   repositories.NoteRepositoryInterface
+	folderRepo repositories.FolderRepositoryInterface
 }
 
-func NewNoteService(noteRepo *repositories.NoteRepository, folderRepo *repositories.FolderRepository) *NoteService {
+func NewNoteService(noteRepo repositories.NoteRepositoryInterface, folderRepo repositories.FolderRepositoryInterface) *NoteService {
 	return &NoteService{
 		noteRepo:   noteRepo,
 		folderRepo: folderRepo,
