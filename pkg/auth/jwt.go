@@ -9,6 +9,13 @@ import (
 	"seta-training/internal/models"
 )
 
+// JWTManagerInterface defines the interface for JWT management
+type JWTManagerInterface interface {
+	GenerateToken(user *models.User) (string, error)
+	ValidateToken(tokenString string) (*Claims, error)
+	RefreshToken(tokenString string) (string, error)
+}
+
 type Claims struct {
 	UserID   uuid.UUID       `json:"user_id"`
 	Username string          `json:"username"`

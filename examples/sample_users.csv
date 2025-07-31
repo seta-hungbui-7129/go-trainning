@@ -1,0 +1,11 @@
+username,email,password,role
+john.doe,john.doe@example.com,password123,manager
+jane.smith,jane.smith@example.com,password456,member
+bob.wilson,bob.wilson@example.com,password789,member
+alice.johnson,alice.johnson@example.com,password101,manager
+charlie.brown,charlie.brown@example.com,password202,member
+diana.prince,diana.prince@example.com,password303,member
+edward.norton,edward.norton@example.com,password404,manager
+fiona.green,fiona.green@example.com,password505,member
+george.martin,george.martin@example.com,password606,member
+helen.clark,helen.clark@example.com,password707,manager
